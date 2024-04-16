@@ -882,28 +882,30 @@ class Albumentations:
 
             # Transforms
             T = [
-                A.OneOf([
-                    A.Blur(),
-                    A.MotionBlur(),
-                    A.MedianBlur(),
-                    A.GlassBlur(),
-                    A.GaussianBlur(),
-                    A.Defocus(),
-                    A.AdvancedBlur(),
-                    A.ZoomBlur()
-                ], p=0.1),
-                A.OneOf([
-                    A.MotionBlur(),
-                    A.Defocus(),
-                    A.ZoomBlur()
-                ], p=0.2),
-                A.OneOf([
-                    A.ToGray(),
-                    A.CLAHE(),
-                    A.RandomBrightnessContrast(),
-                    A.RandomGamma(),
-                    A.ImageCompression(quality_lower=75),
-                ], p=0.2)
+                A.OneOf(
+                    [
+                        A.Blur(),
+                        A.MotionBlur(),
+                        A.MedianBlur(),
+                        A.GlassBlur(),
+                        A.GaussianBlur(),
+                        A.Defocus(),
+                        A.AdvancedBlur(),
+                        A.ZoomBlur(),
+                    ],
+                    p=0.1,
+                ),
+                A.OneOf([A.MotionBlur(), A.Defocus(), A.ZoomBlur()], p=0.2),
+                A.OneOf(
+                    [
+                        A.ToGray(),
+                        A.CLAHE(),
+                        A.RandomBrightnessContrast(),
+                        A.RandomGamma(),
+                        A.ImageCompression(quality_lower=75),
+                    ],
+                    p=0.2,
+                ),
             ]
             self.transform = A.Compose(T, bbox_params=A.BboxParams(format="yolo", label_fields=["class_labels"]))
 
